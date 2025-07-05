@@ -4,10 +4,7 @@ import { searchResponse } from "../utils/searchResponse"
 
 export type Query = {
     company?: string
-    brandName?: string
-    code?: string
-    genericName?: string
-    launchDate?: Date
+    '$or'?: Array<any>
 }
 
 export const search = async (

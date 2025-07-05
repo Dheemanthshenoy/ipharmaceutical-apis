@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 
 dotenv.config();
 
@@ -9,6 +8,8 @@ const PORT = process.env.PORT || 3000;
 const connectionString: string = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
 
 console.log(`DB Connection :: ${connectionString}`)
+
+app.use(express.json())
 
 import apiRoutes from "./routes/index"
 import { connectDb } from './constants/db';

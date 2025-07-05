@@ -9,14 +9,26 @@ export const searchDrugs = async (req: Request, res: Response) => {
     const { body } = req
     const { page, limit } = req.query
 
+    console.log(body)
+
     if (page == null || limit == null) {
         deliverResponse(res, 400, {}, messages.invalidParameters)
     }
 
     let query: Query = {}
 
-    if (body && body.company) {
-        query['company'] = body.company
+    if (body) {
+        if (body.company) {
+            query['company'] = body.company
+        }
+
+        if (body.keyword) {
+            query['$or'] = [
+                { code: { $regex: body.keyword, $options: 'i' } },
+                { genericName: { $regex: body.keyword, $options: 'i' } },
+                { brandName: { $regex: body.keyword, $options: 'i' } }
+            ]
+        }
     }
 
     try {
@@ -34,6 +46,11 @@ export const searchDrugs = async (req: Request, res: Response) => {
             messages.internalServerError
         )
     }
+}
+
+export const drugCompanies = async (req: Request, res: Response) => {
+    const response: string[] | null = await Drug.distinct('company')
+    deliverResponse(res, 200, response, messages.successResponse)
 }
 
 export const findDrug = async (req: Request, res: Response) => {
