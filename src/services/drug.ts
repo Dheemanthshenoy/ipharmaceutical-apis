@@ -7,6 +7,12 @@ export type Query = {
     '$or'?: Array<any>
 }
 
+Drug.syncIndexes().then(() => {
+    console.log('Drug Indexes synced')
+}).catch(() => {
+    console.log('Error Syncing Drug Indexes')
+})
+
 export const search = async (
     query: Query,
     page: number = 1,

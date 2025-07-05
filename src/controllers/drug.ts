@@ -9,8 +9,6 @@ export const searchDrugs = async (req: Request, res: Response) => {
     const { body } = req
     const { page, limit } = req.query
 
-    console.log(body)
-
     if (page == null || limit == null) {
         deliverResponse(res, 400, {}, messages.invalidParameters)
     }

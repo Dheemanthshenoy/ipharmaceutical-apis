@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import morgan from 'morgan'
+const logger = morgan("combined")
 
 dotenv.config();
 
@@ -10,6 +12,7 @@ const connectionString: string = `mongodb://${process.env.DB_HOST}:${process.env
 console.log(`DB Connection :: ${connectionString}`)
 
 app.use(express.json())
+app.use(logger)
 
 import apiRoutes from "./routes/index"
 import { connectDb } from './constants/db';

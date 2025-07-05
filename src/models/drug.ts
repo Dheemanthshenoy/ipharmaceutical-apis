@@ -20,6 +20,9 @@ const drug = new mongoose.Schema<IDrug>({
     launchDate: { type: Date, required: true },
 }, { timestamps: true })
 
-const Drug = mongoose.model<IDrug>("drugs", drug);
+drug.index({ company: 1 });
+drug.index({ code: 1, genericName: 1, brand: 1 })
+drug.index({ code: 1, genericName: 1, brand: 1, company: 1 })
 
+const Drug = mongoose.model<IDrug>("drugs", drug);
 export default Drug;
